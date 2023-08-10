@@ -22,7 +22,13 @@ numbers.forEach((number) => {
 });
 operators.forEach((operator) => {
   operator.addEventListener("click", (e) => {
-    console.log("operator");
+    const keyValue = e.target.dataset.value;
+    if (regex.test(operation)) {
+      evaluateOperation();
+      buildOperation(keyValue);
+    } else {
+      buildOperation(keyValue);
+    }
   });
 });
 deleteBtn.addEventListener("click", () => {
@@ -40,6 +46,42 @@ function buildOperation(key) {
   operation += key;
   updateCurrentOperation();
 }
+function evaluateOperation() {
+  const getOperatorRegex = /\D/;
+  let operand1 = 0;
+  let operator = "";
+  let operand2 = 0;
+  let result = 0;
+  if (regex.test(operation)) {
+    operand1 = parseInt(operation.split(operatorRegex)[0]);
+    operator = getOperatorRegex.exec(operation)[0];
+    operand2 = parseInt(operation.split(operatorRegex)[1]);
+
+    console.log(`${operand1} ${operator} ${operand2}`);
+    switch (operator) {
+      case "+":
+        result = operand1 + operand2;
+        break;
+      case "-":
+        result = operand1 - operand2;
+        break;
+      case "*":
+        result = operand1 * operand2;
+        break;
+      case "/":
+        result = operand1 / operand2;
+        break;
+      default:
+        break;
+    }
+    updatePreviousOperation(operation + "=");
+    operation = result;
+    updateCurrentOperation();
+  }
+}
 function updateCurrentOperation() {
   currentOperation.textContent = operation;
+}
+function updatePreviousOperation(operation) {
+  previousOperation.textContent = operation;
 }
