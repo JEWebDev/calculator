@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <title>Frontend Mentor | Calculator app</title>
+  </head>
+  <body>
+    <main class="main-container">
+      <header class="header">
+        <h1>calc</h1>
+        <div class="theme-container">
+          <p>THEME</p>
+          <div class="switch-container">
+            <div class="theme-numbers">
+              <p>1</p>
+              <p>2</p>
+              <p>3</p>
+            </div>
+            <div class="theme-switch-bg">
+              <div class="theme-switch-dot"></div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="calc-screen">
+        <div class="previous-operation"></div>
+        <div class="current-operation"><p>0</p></div>
+      </div>
+      <div class="calc-keypad">
+        <!-- First Row -->
+        <button class="key number" data-value="7">7</button>
+        <button class="key number" data-value="8">8</button>
+        <button class="key number" data-value="9">9</button>
+        <button class="key reset delete-btn">DEL</button>
+        <!-- Second Row -->
+        <button class="key number" data-value="4">4</button>
+        <button class="key number" data-value="5">5</button>
+        <button class="key number" data-value="6">6</button>
+        <button class="key operator add-btn" data-value="+">+</button>
+        <!-- Third Row -->
+        <button class="key number" data-value="1">1</button>
+        <button class="key number" data-value="2">2</button>
+        <button class="key number" data-value="3">3</button>
+        <button class="key operator sub-btn" data-value="-">-</button>
+        <!-- Fourth Row -->
+        <button class="key period-btn" data-value=".">.</button>
+        <button class="key number" data-value="0">0</button>
+        <button class="key operator divide-btn" data-value="/">/</button>
+        <button class="key operator multiply-btn" data-value="*">x</button>
+        <!-- Fifth Row -->
+        <button class="key reset reset-btn span-two-cols">RESET</button>
+        <button class="key equal equal-btn" data-value="=">=</button>
+      </div>
+    </main>
+    <!-- <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="#">Your Name Here</a>.
+    </div> -->
+    <script src="main.js"></script>
+  </body>
+</html>
