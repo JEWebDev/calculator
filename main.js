@@ -23,28 +23,48 @@ numbers.forEach((number) => {
 operators.forEach((operator) => {
   operator.addEventListener("click", (e) => {
     const keyValue = e.target.dataset.value;
-    if (regex.test(operation)) {
-      evaluateOperation();
-      buildOperation(keyValue);
-    } else {
-      buildOperation(keyValue);
+    let operationLastChar = operation[operation.length - 1];
+    const operators = ["+", "-", "*", "/"];
+    if (!operators.includes(operationLastChar)) {
+      if (regex.test(operation)) {
+        evaluateOperation();
+        buildOperation(keyValue);
+      } else {
+        buildOperation(keyValue);
+      }
     }
   });
 });
 deleteBtn.addEventListener("click", () => {
-  console.log("Delete Button");
+  deleteOneChar();
 });
 resetBtn.addEventListener("click", () => {
-  console.log("Reset Button");
+  reset();
 });
 equalBtn.addEventListener("click", () => {
-  console.log("Equal Button");
+  evaluateOperation();
 });
 
 // Functions
 function buildOperation(key) {
   operation += key;
   updateCurrentOperation();
+}
+function sum(operand1, operand2) {
+  return operand1 + operand2;
+}
+function subtract(operand1, operand2) {
+  return operand1 - operand2;
+}
+function multiply(operand1, operand2) {
+  return operand1 * operand2;
+}
+function divide(operand1, operand2) {
+  if (operand2 === 0) {
+    error();
+  } else {
+    return operand1 / operand2;
+  }
 }
 function evaluateOperation() {
   const getOperatorRegex = /\D/;
@@ -57,19 +77,18 @@ function evaluateOperation() {
     operator = getOperatorRegex.exec(operation)[0];
     operand2 = parseInt(operation.split(operatorRegex)[1]);
 
-    console.log(`${operand1} ${operator} ${operand2}`);
     switch (operator) {
       case "+":
-        result = operand1 + operand2;
+        result = sum(operand1, operand2);
         break;
       case "-":
-        result = operand1 - operand2;
+        result = subtract(operand1, operand2);
         break;
       case "*":
-        result = operand1 * operand2;
+        result = multiply(operand1, operand2);
         break;
       case "/":
-        result = operand1 / operand2;
+        result = divide(operand1, operand2);
         break;
       default:
         break;
@@ -85,3 +104,39 @@ function updateCurrentOperation() {
 function updatePreviousOperation(operation) {
   previousOperation.textContent = operation;
 }
+function deleteOneChar() {
+  operation = operation.toString();
+  let sliced = operation.slice(-1);
+  if (!currentOperation === "Can't divide by zero") {
+    if (operation.length <= 1) {
+      operation = operation.replace(sliced, "");
+      currentOperation.textContent = "0";
+    } else {
+      operation = operation.replace(sliced, "");
+      updateCurrentOperation();
+    }
+  } else {
+    currentOperation.textContent = "0";
+    operation = "";
+  }
+}
+function reset() {
+  operation = "";
+  currentOperation.textContent = operation + "0";
+  updatePreviousOperation("");
+}
+function error() {
+  console.log(currentOperation.textContent);
+}
+/*
+! Add support for operations with float numbers
+TODO: Change regex to accept integers and float numbers
+
+! Add support for entering float numbers with period button
+TODO: Logic to disable period button after one use
+
+TODO: Future updates:
+* Add keyboard support
+* Fix Responsive design
+* Add theme switch functionality
+*/
